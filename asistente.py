@@ -61,6 +61,7 @@ def speak(audio):
     engine.runAndWait()
  
 def wishMe():
+    global assname
     hour = int(datetime.datetime.now().hour)
     if hour>= 0 and hour<12:
         speak("Buenos dias !")
@@ -77,6 +78,7 @@ def wishMe():
     
  
 def username():
+    global uname
     speak("Cual es su nombre")
     uname = takeCommand()
     speak("Bienvenido al Centro de desarrollo tecnológico")
@@ -141,7 +143,7 @@ if __name__ == '__main__':
             results = wikipedia.summary(query, sentences = 1)
             speak("De acuerdo a Wikipedia")
             speak(results)
-            speak('Puedes ir a la página de Wikipedia si das más información')
+            speak('Puedes ir a la página de Wikipedia si quieres más información')
             
         elif 'abra youtube' in query or 'abrir youtube' in query or 'youtube' in query:
             speak("Aqui vas a Youtube\n")
@@ -151,28 +153,25 @@ if __name__ == '__main__':
             speak('Los centros de de desarrollo tecnológico son organizaciones públicas o privadas, dedicadas al desarrollo de proyectos de investigación aplicada, el desarrollo de tecnología propia y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico del país, sus regiones y/o ciudades.')
             speak("Te llevo auna página que te sirve de referencia\n")
             webbrowser.open("https://apolo.unab.edu.co/es/organisations/centro-de-desarrollo-tecnol%C3%B3gico-smart-regions-center")
- 
-        elif ('smart region' in query or "smart region lab" in query or "smart región lab" in query or  "smar región lab" in query) and 'página' in query:
-            speak("Aqui vas a la página de Smart Región Lab\n")
-            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
-        elif ('smart región' in query or "smart región lab" in query) and ('objetivo' in query or 'misión' in query or 'página' in query or 'qué es' in query or 'que es' in query):
+        elif 'objetivo' in query or 'misión' in query :
             speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
-        elif ('áreas'  in query or 'temas' in query) and ('cdt' in query or 'laboratorio' in query or 'Smart' in query or 'región' in query or 'que es' in query):
-            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+        elif ('áreas'  in query or 'tema' in query or 'tema' in query) :
+            speak("Las áreas que cubre el CDT son: Estructuración de proyectos de I+D+I, Entrenamiento y formación especializada, Diseño, desarrollo y validación de soluciones tecnológicas,Vigilancia Tecnológica e Inteligencia Competitiva,Consultoría especializada en innovación\n")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
 
-        elif ('focos' in query or "foco" in query) and ('cdt' in query or 'laboratorio' in query or 'smart' in query or 'region' in query or 'que es' in query):
-            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+        elif 'sectores' in query or "Sectores de aplicación" in query  or "sector" in query:
+            speak("Los sectores son: Energía,Salud,Agroindustria,Turismo,Manufactura,Biotecnología,Derecho a la Alimentación,Territorios sostenibles.\n")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
-        elif ('tecnologias' in query or "tecologia" in query) and ('cdt' in query or 'laboratorio' in query or 'smart' in query or 'region' in query or 'que es' in query):
-            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+        elif 'tecnologías' in query or "tecnología" in query:
+            speak("Las Tecnologías de la Industria 4.0 Priorizadas son:Internet de las Cosas,Ciencia de datos,Inteligencia Artificial.")
+            speak("También tenemos capacidades trabajar en:Simulación,Videojuegos,Ciberseguridad,Robótica,Ciudades inteligentes.")
+            speak("Todo nuestro trabajo se desarrolla con herramientas de Creatividad para generar Innovaciones")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
-
 
         elif 'abra google' in query or 'ir a google' in query or 'google' in query:
             speak("Quiere ir a Google, aquí tienes \n")
@@ -271,12 +270,12 @@ if __name__ == '__main__':
         elif "quién soy yo" in query:
             speak("Si estas hablando eres un humano.")
  
-        elif "Por qué vino" in query or "A qué vino" in query  or "A qué vino a este mundo" in query  or "por que nació" in query  or "porque nació" in query:
+        elif "vino" in query or "viniste" in query  or "razón de ser" in query  or "para qué nació" in query  or "porque nació" in query:
             speak("Vine a este mundo gracias al trabajo de Alfredo, estoy entrenado para ti")
  
         elif 'presentación' in query or 'presentacion' in query:
             speak("Abriendo la presentación de Power Point")
-            power = r"C:\\Users\\Usuario\\Documents\\Proyecto IA\\asistente\\presentacion\\Voice Assistant.pptx"
+            power = r"C:\\Users\\Usuario\\Documents\\Proyecto IA\\asistente\\presentacion\\cdt.pptx"
             os.startfile(power)
  
         elif 'qué es amor' in query or 'que es amor' in query or 'Qué es amor' in query:
@@ -302,12 +301,13 @@ if __name__ == '__main__':
         elif 'noticia' in query:
              
             try: 
-                jsonObj = urlopen('''https://newsapi.org / v1 / articles?source = the-times-of-india&sortBy = top&apiKey =\\times of India Api key\\''')
+                api_news='a3a77c24281644b5a598d70a6f1e887c'
+                jsonObj = urlopen('''https://newsapi.org/v2/everything?q=colombia&from=2024-03-18&sortBy=publishedAt&apiKey=a3a77c24281644b5a598d70a6f1e887c''')
                 data = json.load(jsonObj)
                 i = 1
                  
-                speak('here are some top news from the times of india')
-                print('''=============== TIMES OF INDIA ============'''+ '\n')
+                speak('Aquí hay algunas noticias de colombia.')
+                print('''=============== NOTICIAS ============'''+ '\n')
                  
                 for item in data['articles']:
                      
@@ -324,7 +324,7 @@ if __name__ == '__main__':
                 speak("Bloquendo windows")
                 ctypes.windll.user32.LockWorkStation()
  
-        elif 'bajar el sistema' in query:
+        elif 'bajar el sistema' in query or 'cerrar el sistema' in query:
                 speak("Espera un segundo ! Su sistema está en camino de apagarse")
                 subprocess.call('shutdown / p /f')
                  
@@ -476,6 +476,8 @@ if __name__ == '__main__':
         # elif "" in query:
             # Command go here
             # For adding more commands
+    
+    
     
     
     
