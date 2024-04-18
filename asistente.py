@@ -6,23 +6,19 @@
 #python.exe -m pip install --upgrade pip
 #pip install wolframalpha
 #pip install pyttsx3
-#pip install tkinter 
+#pip install tkinter  No instalado
 #pip install wikipedia
 #pip install SpeechRecognition
 #pip install ecapture
 #pip install pyjokes
 #pip install twilio
 #pip install requests
-#pip install pyjokes 
 #pip install beautifulsoup4
 #pip install winshell
 #pip install feedparser
-#pip install feedparser 
-#pip install twilio 
 #pip install clint
+#pip install pyaudio
 #pip install pipwin
-#
-
 
 
 
@@ -30,10 +26,10 @@
 import subprocess
 import wolframalpha
 import pyttsx3
-import tkinter
+#import tkinter
 import json
-import random
-import operator
+#import random
+#import operator
 import speech_recognition as sr
 import datetime
 import wikipedia
@@ -41,7 +37,7 @@ import webbrowser
 import os
 import winshell
 import pyjokes
-import feedparser
+#import feedparser
 import smtplib
 import ctypes
 import time
@@ -50,8 +46,8 @@ import shutil
 from twilio.rest import Client
 from clint.textui import progress
 from ecapture import ecapture as ec
-from bs4 import BeautifulSoup
-import win32com.client as wincl
+#from bs4 import BeautifulSoup
+#import win32com.client as wincl
 from urllib.request import urlopen
 
 
@@ -88,7 +84,7 @@ def username():
     columns = shutil.get_terminal_size().columns
      
     print("#####################".center(columns))
-    print("Bienvenido.", uname.center(columns))
+    print("          Bienvenido.".center(columns), uname.center(columns))
     print("#####################".center(columns))
      
     speak("Cómo puedo ayudarle")
@@ -115,13 +111,13 @@ def takeCommand():
     return query
   
 def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP('smtp.gmail.com', 465)
     server.ehlo()
     server.starttls()
      
     # Enable low security in gmail
-    server.login('adiaz', 'Intelig321!arti')
-    server.sendmail('adiaz', to, content)
+    server.login('adiaz@unab.edu.co', 'Intelig321!Arti')
+    server.sendmail('adiaz@unab.edu.co', to, content)
     server.close()
 
 if __name__ == '__main__':
@@ -135,7 +131,6 @@ if __name__ == '__main__':
     while True:
 
         query = takeCommand().lower()
-        print("paso", query)
         # All the commands said by user will be 
         # stored here in 'query' and will be
         # converted to lower case for easily 
@@ -146,40 +141,55 @@ if __name__ == '__main__':
             results = wikipedia.summary(query, sentences = 1)
             speak("De acuerdo a Wikipedia")
             speak(results)
-            speak('Puedes ir a la pagina de Wikipedia si deas más información')
+            speak('Puedes ir a la página de Wikipedia si das más información')
             
-        elif 'abra youtube' in query or 'abrir youtube' in query:
+        elif 'abra youtube' in query or 'abrir youtube' in query or 'youtube' in query:
             speak("Aqui vas a Youtube\n")
             webbrowser.open("youtube.com")
         
-        elif 'centro de desarrollo' in query or "cdt" in query or "cdt unab" in query or "soluciones iot" in query:
-            speak("Te llevo a la página solicitada\n")
+        elif 'centro de desarrollo' in query or "cdt" in query or "cdt unab" in query or "soluciones iot" in query or "desarrollo tecnológico" in query:
+            speak('Los centros de de desarrollo tecnológico son organizaciones públicas o privadas, dedicadas al desarrollo de proyectos de investigación aplicada, el desarrollo de tecnología propia y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico del país, sus regiones y/o ciudades.')
+            speak("Te llevo auna página que te sirve de referencia\n")
             webbrowser.open("https://apolo.unab.edu.co/es/organisations/centro-de-desarrollo-tecnol%C3%B3gico-smart-regions-center")
  
-        elif ('smart region' in query or "smart region lab" in query) and 'página' in query:
-            speak("Aqui vas a Smart Región Lab\n")
+        elif ('smart region' in query or "smart region lab" in query or "smart región lab" in query or  "smar región lab" in query) and 'página' in query:
+            speak("Aqui vas a la página de Smart Región Lab\n")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
-        elif ('smart region' in query or "smart region lab" in query) and ('objetivo' in query or 'misión' in query, 'página' in query or 'qué es' in query):
+        elif ('smart región' in query or "smart región lab" in query) and ('objetivo' in query or 'misión' in query or 'página' in query or 'qué es' in query or 'que es' in query):
             speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
-            
-        elif 'abra google' in query:
-            speak("Vamos a  Google\n")
+
+        elif ('áreas'  in query or 'temas' in query) and ('cdt' in query or 'laboratorio' in query or 'Smart' in query or 'región' in query or 'que es' in query):
+            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
+
+
+        elif ('focos' in query or "foco" in query) and ('cdt' in query or 'laboratorio' in query or 'smart' in query or 'region' in query or 'que es' in query):
+            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
+
+        elif ('tecnologias' in query or "tecologia" in query) and ('cdt' in query or 'laboratorio' in query or 'smart' in query or 'region' in query or 'que es' in query):
+            speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
+            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
+
+
+        elif 'abra google' in query or 'ir a google' in query or 'google' in query:
+            speak("Quiere ir a Google, aquí tienes \n")
             webbrowser.open("google.com")
  
 
-        elif 'escuchar musica' in query or "canción" in query or "musica" in query or "oir canción" in query:
+        elif 'escuchar música' in query or "canción" in query or "música" in query or "oir una canción" in query:
             speak("Solo tengo esta canción porque mi jefe no me deja oir musica")
             # music_dir = "G:\\Song"
-            music_dir = "D:\\asistente\musica"
+            music_dir = "D:\\asistente\\musica"
             songs = os.listdir(music_dir)
             print(songs)    
             random = os.startfile(os.path.join(music_dir, songs[1]))
  
-        elif 'fecha' in query or 'dime la hora' in query or 'dar la hora' in query:
-            strTime = datetime.datetime.now().strftime("% H:% M:% S")    
-            speak(f"Sir, the time is {strTime}")
+        elif 'fecha' in query or 'dame la hora' in query or 'dame la fecha' in query or 'hora' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")   
+            speak(f"La fecha y hora son {strTime}")
  
         #elif 'open opera' in query:
         #    codePath = r"C:\\Users\\GAURAV\\AppData\\Local\\Programs\\Opera\\launcher.exe"
@@ -208,15 +218,15 @@ if __name__ == '__main__':
                 print(e)
                 speak("No fué posible enviar el email, intenta más tarde")
  
-        elif 'cómo estás' in query:
+        elif 'cómo estás' in query or 'qué tal estás'in query  or  'qué tal'in query:
             speak("Yo muy bien, gracias")
-            speak("y usted qué tal?")
+            speak("Espero que usten tabiém?")
  
-        elif 'bien' in query or "muy bien" in query:
+        elif 'yo bien' in query or "muy bien" in query or "estoy bien" in query:
             speak("Muy buen saber que estás bien")
  
         elif "cambiar tu nombre" in query or "cambie tu nombre" in query or "otro nombre para ti" in query:
-            speak("Cual sería ni nuevo nombre")
+            speak("Cual sería mi nuevo nombre")
             assname = takeCommand()
             speak("Gracias ahora soy"+assname)
  
@@ -226,70 +236,70 @@ if __name__ == '__main__':
             uname = takeCommand()
             speak("Eres ahora"+uname)
  
-        elif "cuál es tu nombre" in query or "qué  nombre" in query:
+        elif "cuál es tu nombre" in query or "qué nombre tienes" in query:
             speak("Mis amigos me llaman")
             speak(assname)
-            print("My friends call me", assname)
+            print("Mis amigos me llaman", assname)
  
         elif 'salir' in query:
             speak("Gracias por su tiempo")
             exit()
  
-        elif "quien te construyo" in query or "quién te creó" in query: 
-            speak("Yo fuí adaptado de un proyecto Gaurav, por Alfredo Diaz")
+        elif "quien te construyó" in query or "quién te creó" in query: 
+            speak("Yo fuí adaptado y entrenado por Alfredo Diaz del Centro de desarrollo tecnológico")
              
         elif 'chiste' in query:
             speak(pyjokes.get_joke(language='es', category= 'all'))
              
-        elif "calculate" in query: 
+        elif "calcula" in query or "operación matemática" in query  : 
              
             app_id = "Wolframalpha api id"
-            client = wolframalpha.Client(app_id)
+            client = wolframalpha.Client("3527QJ-EYKJ9QYEQY")
             indx = query.lower().split().index('calculate') 
             query = query.split()[indx + 1:] 
             res = client.query(' '.join(query)) 
             answer = next(res.results).text
-            print("The answer is " + answer) 
-            speak("The answer is " + answer) 
+            print("La respuesta es" + answer) 
+            speak("La respuesta es" + answer) 
  
-        elif 'search' in query or 'play' in query:
+        elif 'buscar' in query or 'encuentre' in query:
              
             query = query.replace("search", "") 
             query = query.replace("play", "")          
             webbrowser.open(query) 
  
-        elif "who i am" in query:
-            speak("If you talk then definitely your human.")
+        elif "quién soy yo" in query:
+            speak("Si estas hablando eres un humano.")
  
-        elif "why you came to world" in query:
-            speak("Thanks to Gaurav. further It's a secret")
+        elif "Por qué vino" in query or "A qué vino" in query  or "A qué vino a este mundo" in query  or "por que nació" in query  or "porque nació" in query:
+            speak("Vine a este mundo gracias al trabajo de Alfredo, estoy entrenado para ti")
  
-        elif 'power point presentation' in query:
-            speak("opening Power Point presentation")
-            power = r"C:\\Users\\GAURAV\\Desktop\\Minor Project\\Presentation\\Voice Assistant.pptx"
+        elif 'presentación' in query or 'presentacion' in query:
+            speak("Abriendo la presentación de Power Point")
+            power = r"C:\\Users\\Usuario\\Documents\\Proyecto IA\\asistente\\presentacion\\Voice Assistant.pptx"
             os.startfile(power)
  
-        elif 'is love' in query:
-            speak("It is 7th sense that destroy all other senses")
+        elif 'qué es amor' in query or 'que es amor' in query or 'Qué es amor' in query:
+            speak("Es el séptimo sentido que destruye a los otros sentidos. es un chiste")
  
-        elif "who are you" in query:
-            speak("I am your virtual assistant created by Gaurav")
+        elif "quién eres" in query or 'quién eres' in query or 'Quién eres' in query:
+            speak("Yo soy el asistente virtual del Smart Region Lab entrenado por Alfredo")
  
-        elif 'reason for you' in query:
-            speak("I was created as a Minor project by Mister Gaurav ")
+        elif 'Para qué te crearon' in query or 'Por qué te crearon' in query:
+            speak("Fuí creado para un experimento en el laboratorio Smart Region Lab por Alfredo")
  
-        elif 'change background' in query:
-            ctypes.windll.user32.SystemParametersInfoW(20, 
-                                                       0, 
-                                                       "Location of wallpaper",
-                                                       0)
-            speak("Background changed successfully")
+        #elif 'change background' in query:
+        #    ctypes.windll.user32.SystemParametersInfoW(20, 
+        #                                               0, 
+        #                                               "Location of wallpaper",
+        #                                               0)
+        #    speak("Background changed successfully")
+        # 
+        #elif 'open bluestack' in query:
+        #    appli = r"C:\\ProgramData\\BlueStacks\\Client\\Bluestacks.exe"
+        #    os.startfile(appli)
  
-        elif 'open bluestack' in query:
-            appli = r"C:\\ProgramData\\BlueStacks\\Client\\Bluestacks.exe"
-            os.startfile(appli)
- 
-        elif 'news' in query:
+        elif 'noticia' in query:
              
             try: 
                 jsonObj = urlopen('''https://newsapi.org / v1 / articles?source = the-times-of-india&sortBy = top&apiKey =\\times of India Api key\\''')
@@ -310,53 +320,53 @@ if __name__ == '__main__':
                 print(str(e))
  
          
-        elif 'lock window' in query:
-                speak("locking the device")
+        elif 'bloquea la pantalla' in query or 'bloquea windows' in query:
+                speak("Bloquendo windows")
                 ctypes.windll.user32.LockWorkStation()
  
-        elif 'shutdown system' in query:
-                speak("Hold On a Sec ! Your system is on its way to shut down")
+        elif 'bajar el sistema' in query:
+                speak("Espera un segundo ! Su sistema está en camino de apagarse")
                 subprocess.call('shutdown / p /f')
                  
-        elif 'empty recycle bin' in query:
+        elif 'borra reciclaje' in query or 'limpia el reciclaje' in query:
             winshell.recycle_bin().empty(confirm = False, show_progress = False, sound = True)
-            speak("Recycle Bin Recycled")
+            speak("Reciclaje borrado")
  
-        elif "don't listen" in query or "stop listening" in query:
-            speak("for how much time you want to stop jarvis from listening commands")
+        elif "no escuchar" in query or "pare de escuchar" in query:
+            speak("¿Durante cuánto tiempo deseas que  deje de escuchar comandos?")
             a = int(takeCommand())
             time.sleep(a)
             print(a)
  
-        elif "where is" in query:
-            query = query.replace("where is", "")
+        elif "dónde estamos" in query:
+            query = query.replace("donde estamos", "")
             location = query
-            speak("User asked to Locate")
+            speak("Vamos a ubicar")
             speak(location)
-            webbrowser.open("https://www.google.nl / maps / place/" + location + "")
+            webbrowser.open("https://www.google.nl/maps/place/" + location + "")
  
-        elif "camera" in query or "take a photo" in query:
-            ec.capture(0, "Jarvis Camera ", "img.jpg")
+        elif "cámara" in query or "tomar una foto" in query:
+            ec.capture(0, "foto", "img.jpg")
  
         elif "restart" in query:
             subprocess.call(["shutdown", "/r"])
              
-        elif "hibernate" in query or "sleep" in query:
-            speak("Hibernating")
+        elif "hibernar" in query or "sleep" in query:
+            speak("Hibernando")
             subprocess.call("shutdown / h")
  
-        elif "log off" in query or "sign out" in query:
-            speak("Make sure all the application are closed before sign-out")
+        elif "cerrar sesión" in query or "sign out" in query:
+            speak("Asegúrese de que todas las aplicaciones estén cerradas antes de cerrar sesión.")
             time.sleep(5)
             subprocess.call(["shutdown", "/l"])
  
-        elif "Escribe una nota" in query or "nota" in query:
+        elif "escribe una nota" in query or "escribir nota" in query:
             speak("Qué quisiera que yo escribiera")
             note = takeCommand()
             file = open('nota.txt', 'w')
             speak("Puedo incluir el dia y la hora")
             snfm = takeCommand()
-            if 'yes' in snfm or 'sure' in snfm:
+            if 'si' in snfm or 'seguro' in snfm:
                 strTime = datetime.datetime.now().strftime("% H:% M:% S")
                 file.write(strTime)
                 file.write(" :- ")
@@ -364,18 +374,18 @@ if __name__ == '__main__':
             else:
                 file.write(note)
          
-        elif "mostrar la nota" in query or "ver la nota" in query:
+        elif "mostrar la nota" in query or "ver la nota" in query or "ver nota" in query:
             speak("mostrando la nota")
             file = open("nota.txt", "r") 
             print(file.read())
             speak(file.read(6))
  
         elif "actualizar el asistente" in query:
-            speak("After downloading file please replace this file with the downloaded one")
-            url = '# url after uploading file'
+            speak("Después de descargar el archivo, reemplace este archivo con el descargado.")
+            url = 'https://raw.githubusercontent.com/adiacla/asistente/main/'
             r = requests.get(url, stream = True)
              
-            with open("Voice.py", "wb") as Pypdf:
+            with open("asistente.py", "wb") as Pypdf:
                  
                 total_length = int(r.headers.get('content-length'))
                  
@@ -385,10 +395,10 @@ if __name__ == '__main__':
                       Pypdf.write(ch)
                      
         # NPPR9-FWDCX-D2C8J-H872K-2YT43
-        elif "jarvis" in query:
+        elif "alfredo" in query:
              
             wishMe()
-            speak("Jarvis 1 point o in your service Mister")
+            speak("Si señor ese soy yo... ")
             speak(assname)
  
         elif "clima" in query:
@@ -406,15 +416,15 @@ if __name__ == '__main__':
             print(response.text)
             if x["cod"] != "404": 
                 y = x["main"] 
-                current_temperature = str(float(y["temp"]) - 273.15 )
+                current_temperature = str(round(float(y["temp"] - 273.15 ),0))
                 current_pressure = y["pressure"] 
                 current_humidity = y["humidity"] 
                 z = x["weather"] 
                 weather_description = z[0]["description"] 
-                speak(" Temperatura (en Grados centígrados) = " +str(current_temperature)+"\n presión atmosférica (en hPa) ="+str(current_pressure) +"\n humedad (en percentage) = " +str(current_humidity) +"\n descripción = " +str(weather_description)) 
+                speak(" Temperatura es= " +str(current_temperature)+"grados centigrados"+"\n presión atmosférica="+str(current_pressure) +"hpa"+"\n la humedad es= " +str(current_humidity)+"porciento") 
              
             else: 
-                speak(" Ciudad no encontrada ")
+                speak(" la ciudad no fué encontrada ")
              
         elif "enviar mensaje" in query:
                 # You need to create an account on Twilio to use this service
@@ -453,18 +463,19 @@ if __name__ == '__main__':
              
             # Use the same API key 
             # that we have generated earlier
-            client = wolframalpha.Client("3527QJ-EYKJ9QYEQY")
+            client = wolframalpha.Client("3527QJ-EYKJ9QYEQY",location="bucaramanga,CO")
             res = client.query(query)
              
             try:
                 print (next(res.results).text)
                 speak (next(res.results).text)
             except StopIteration:
-                print ("No tengo resutados para esa pregunta")
+                print ("No tengo resultados para esa pregunta")
                 speak ("No encontré una respuesta, intenta otra vez")
  
         # elif "" in query:
             # Command go here
             # For adding more commands
+    
     
     
