@@ -73,7 +73,7 @@ def wishMe():
         speak("Buenas Noches !")  
   
     assname =("Alfredo")
-    speak("Soy"+assname+"su asistente en el laboratorio")
+    speak("Soy "+assname+" su asistente en el laboratorio")
     #speak(assname)
     
  
@@ -84,10 +84,10 @@ def username():
     speak(uname+",Bienvenido al Centro de desarrollo tecnológico")
     columns = shutil.get_terminal_size().columns
      
-    print("#####################".center(columns))
-    print("          Bienvenido.".center(columns), uname.center(columns))
-    print("#####################".center(columns))
-     
+    print("###############################################".center(columns))
+    print("Bienvenido al Centro de Desarrollo Tecnológico".center(columns))
+    print("Smart Region Lab".center(columns))
+    print("###############################################".center(columns))
     speak("Cómo puedo ayudarle")
  
 def takeCommand():
@@ -106,8 +106,8 @@ def takeCommand():
   
     except Exception as e:
         print(e)    
-        print("Perdón, no entendí.")  
-        return "None"
+        print("No entendi.")  
+        return ""
      
     return query
   
@@ -120,6 +120,9 @@ def sendEmail(to, content):
     server.login('adiaz@unab.edu.co', 'Intelig321!Arti')
     server.sendmail('adiaz@unab.edu.co', to, content)
     server.close()
+
+def otra():
+    speak("puedes continuar usando el asistente")
 
 if __name__ == '__main__':
     clear = lambda: os.system('cls')    
@@ -139,53 +142,60 @@ if __name__ == '__main__':
         if 'wikipedia' in query:
             speak('Qué quieres buscar en Wikipedia...')
             query = takeCommand()
-            results = wikipedia.summary(query, sentences = 1)
-            speak("De acuerdo a Wikipedia")
-            speak(results)
-            speak('Puedes ir a la página de Wikipedia si quieres más información')
-            
+            try:
+                results = wikipedia.summary(query, sentences = 1)
+                speak("De acuerdo a Wikipedia")
+                speak(results)
+                speak('Puedes ir a la página de Wikipedia si quieres más información')
+            except Exception as e:
+                print(e)
+                speak("No fué posible encontrar esa información en Wikipedia")
+            otra()
+
         elif 'abra youtube' in query or 'abrir youtube' in query or 'youtube' in query:
             speak("Aqui vas a Youtube\n")
             webbrowser.open("youtube.com")
+            otra()
         
         elif 'centro de desarrollo' in query or "cdt" in query or "cdt unab" in query or "soluciones iot" in query or "desarrollo tecnológico" in query or "smart" in query:
-            speak('Los centros de de desarrollo tecnológico son organizaciones públicas o privadas, dedicadas al desarrollo de proyectos de investigación aplicada, el desarrollo de tecnología propia y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico del país, sus regiones y/o ciudades.')
-            speak("Te llevo auna página que te sirve de referencia\n")
-            webbrowser.open("https://apolo.unab.edu.co/es/organisations/centro-de-desarrollo-tecnol%C3%B3gico-smart-regions-center")
+            speak('Los centros de desarrollo tecnológico son organizaciones públicas o privadas, dedicadas al desarrollo de proyectos de investigación aplicada, el desarrollo de tecnología propia y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico del país, sus regiones y/o ciudades.')
+            #speak("Te llevo a una página que te sirve de referencia\n")
+            otra()
+            #webbrowser.open("https://apolo.unab.edu.co/es/organisations/centro-de-desarrollo-tecnol%C3%B3gico-smart-regions-center")
 
         elif 'objetivo' in query or 'misión' in query :
             speak("El Centro de Desarrollo Tecnológico (CDT) Smart Regions es un centro enfocado en el diseño y desarrollo de proyectos de CTeI, tecnologías propias y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico, articulando Sociedad, Estado, Empresa y Academia soportados en investigación y uso de tecnologías 4.0 para la transformación digital, creando valor sostenible y escalable para territorios inteligentes.\n")
-            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
-
+            otra()
         elif ('áreas'  in query or 'tema' in query or 'tema' in query) :
             speak("Las áreas que cubre el CDT son: Estructuración de proyectos de I+D+I, Entrenamiento y formación especializada, Diseño, desarrollo y validación de soluciones tecnológicas,Vigilancia Tecnológica e Inteligencia Competitiva,Consultoría especializada en innovación\n")
-            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
-
-
+            otra()
         elif 'sectores' in query or "Sectores de aplicación" in query  or "sector" in query:
             speak("Los sectores son: Energía,Salud,Agroindustria,Turismo,Manufactura,Biotecnología,Derecho a la Alimentación,Territorios sostenibles.\n")
-            webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
-
+            otra()
         elif 'tecnologías' in query or "tecnología" in query:
             speak("Las Tecnologías de la Industria 4.0 Priorizadas son:Internet de las Cosas,Ciencia de datos,Inteligencia Artificial.")
-            speak("También tenemos capacidades trabajar en:Simulación,Videojuegos,Ciberseguridad,Robótica,Ciudades inteligentes.")
+            speak("También tenemos capacidades para trabajar en:Simulación,Videojuegos,Ciberseguridad,Robótica,Ciudades inteligentes.")
             speak("Todo nuestro trabajo se desarrolla con herramientas de Creatividad para generar Innovaciones")
+            otra()
+
+        elif 'página web' in query or "home page" in query:
+            speak("En tu navegador te estoy abriendo la página del laboratorio del CDT")
             webbrowser.open("https://smartregionscenter.com.co/laboratorio_iot")
 
         elif 'abra google' in query or 'ir a google' in query or 'google' in query:
-            speak("Quiere ir a Google, aquí tienes \n")
+            speak("Quiere ir a Google, aquí tienes google\n")
             webbrowser.open("google.com")
  
 
-        elif 'escuchar música' in query or "canción" in query or "música" in query or "oir una canción" in query:
-            speak("Solo tengo esta canción porque mi jefe no me deja oir musica")
+        elif 'escuchar música' in query or "canción" in query or "música" in query or "oir una canción" in query or "Música" in query:
+            speak("Tengo pocas canciones, porque mi jefa no me deja oir musica")
             # music_dir = "G:\\Song"
-            music_dir = "D:\\asistente\musica"
+            music_dir = "C:\\Users\\Usuario\\Documents\\Proyecto IA\\asistente\musica"
             songs = os.listdir(music_dir)
             print(songs)    
             random = os.startfile(os.path.join(music_dir, songs[1]))
  
-        elif 'fecha' in query or 'dame la hora' in query or 'dame la fecha' in query or 'hora' in query:
+        elif 'fecha' in query or 'deme la hora' in query or 'deme la fecha' in query or 'hora' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")   
             speak(f"La fecha y hora son {strTime}")
  
@@ -193,9 +203,9 @@ if __name__ == '__main__':
         #    codePath = r"C:\\Users\\GAURAV\\AppData\\Local\\Programs\\Opera\\launcher.exe"
         #    os.startfile(codePath)
  
-        elif 'email al director' in query:
+        elif 'email al director' in query or 'correo al director' in query:
             try:
-                speak("Qué quieres decile?")
+                speak("Qué quiere decirle?")
                 content = takeCommand()
                 to = "adiaz@unab.edu.co"   
                 sendEmail(to, content)
@@ -208,7 +218,7 @@ if __name__ == '__main__':
             try:
                 speak("Qué quiere decir?")
                 content = takeCommand()
-                speak("A quién desea enviale, escribe en la pantalla")
+                speak("A quién desea enviale, escribe usa tu teclado")
                 to = input()    
                 sendEmail(to, content)
                 speak("El email fué enviado !")
@@ -218,59 +228,69 @@ if __name__ == '__main__':
  
         elif 'cómo estás' in query or 'qué tal estás'in query  or  'qué tal'in query:
             speak("Yo muy bien, gracias")
-            speak("Espero que usten tabiém?")
+            speak("Espero que usten tabién este disfrutando este asistente?")
  
         elif 'yo bien' in query or "muy bien" in query or "estoy bien" in query:
-            speak("Muy buen saber que estás bien")
+            speak("Es muy bueno saber que está usted bien")
  
-        elif "cambiar tu nombre" in query or "cambie tu nombre" in query or "otro nombre para ti" in query:
+        elif "cambiar tu nombre" in query or "cambia tu nombre" in query or "otro nombre para ti" in query:
             speak("Cual sería mi nuevo nombre")
             assname = takeCommand()
-            speak("Gracias ahora soy"+assname)
+            speak("Gracias, ahora mis amigos me conocerán por"+assname)
  
  
-        elif "cambiar nombre" in query or "cambie mi nombre" in query or "otro nombre" in query:
+        elif "cambiar nombre" in query or "cambia mi nombre" in query or "otro nombre" in query:
             speak("Cuál es tu nombre")
             uname = takeCommand()
-            speak("Eres ahora"+uname)
+            speak("A partir de ahora eres"+uname)
  
         elif "cuál es tu nombre" in query or "qué nombre tienes" in query:
             speak("Mis amigos me llaman")
             speak(assname)
-            print("Mis amigos me llaman", assname)
+            print("Mis amigos me llaman ", assname, " El asistente del laboratorio")
  
-        elif 'salir' in query:
+        elif 'salir' in query or 'chao' in query or 'adios' in query  :
             speak("Gracias por su tiempo")
             exit()
  
-        elif "quien te construyó" in query or "quién te creó" in query: 
-            speak("Yo fuí adaptado y entrenado por Alfredo Diaz del Centro de desarrollo tecnológico")
+        elif "quién te construyó" in query or "quién te creó" in query or "cómo naciste" in query or "de dónde saliste" in query or "quién te hizo" in query: 
+            speak("Yo fuí adaptado y entrenado por Alfredo Diaz del Centro de Desarrollo Tecnológico, a quien le debo mi vida. Aún soy muy joven y estoy aprendiendo")
              
         elif 'chiste' in query:
+            speak("Mis chiste son muy técnicos, pero te voy a contar uno:")
             speak(pyjokes.get_joke(language='es', category= 'all'))
              
-        elif "calcula" in query or "operación matemática" in query  : 
-             
+        elif "calcula" in query or "operación matemática" in query  :           
             app_id = "Wolframalpha api id"
             client = wolframalpha.Client("3527QJ-EYKJ9QYEQY")
-            indx = query.lower().split().index('calculate') 
+            # Obtener la consulta para calcular
+            if 'calcula' in query:
+                indx = query.lower().split().index('calcula') 
+            else:
+                indx = query.lower().split().index('operación') + 1
             query = query.split()[indx + 1:] 
-            res = client.query(' '.join(query)) 
-            answer = next(res.results).text
-            print("La respuesta es" + answer) 
-            speak("La respuesta es" + answer) 
- 
-        elif 'buscar' in query or 'encuentre' in query:
+            
+            try:
+                # Consultar a Wolfram Alpha
+                res = client.query(' '.join(query)) 
+                answer = next(res.results).text
+                print("La respuesta es:", answer) 
+                speak("La respuesta es: " + answer)
+            except Exception as e:
+                print("Hubo un error al calcular la operación:", e)
+
+        elif 'busca en internet' in query or 'encuentra en internet' in query:
              
-            query = query.replace("search", "") 
-            query = query.replace("play", "")          
+            query = query.replace('busca en internet', "") 
+            query = query.replace('encuentra en internet', "")          
             webbrowser.open(query) 
  
+
         elif "quién soy yo" in query:
-            speak("Si estas hablando eres un humano.")
+            speak(uname+ "dado que estés hablando eres un humano y estás interesdo en el CDT.")
  
-        elif "vino" in query or "viniste" in query  or "razón de ser" in query  or "para qué nació" in query  or "porque nació" in query:
-            speak("Vine a este mundo gracias al trabajo de Alfredo, estoy entrenado para ti")
+        elif "vino" in query or "viniste" in query  or "razón de ser" in query  or "para qué nació" in query  or "por qué nació" in query:
+            speak("Vine a este mundo gracias al trabajo de Alfredo, estoy entrenado para ti y apoyarte con el Smart Region Lab")
  
         elif 'presentación' in query or 'presentacion' in query:
             speak("Abriendo la presentación de Power Point")
@@ -283,7 +303,7 @@ if __name__ == '__main__':
         elif "quién eres" in query or 'quién eres' in query or 'Quién eres' in query:
             speak("Yo soy el asistente virtual del Smart Region Lab entrenado por Alfredo")
  
-        elif 'Para qué te crearon' in query or 'Por qué te crearon' in query:
+        elif 'Para qué te crearon' in query or 'Por qué te crearon' in query or 'te crearon' in query:
             speak("Fuí creado para un experimento en el laboratorio Smart Region Lab por Alfredo")
  
         #elif 'change background' in query:
@@ -340,11 +360,12 @@ if __name__ == '__main__':
         elif "dónde estamos" in query:
             query = query.replace("donde estamos", "")
             location = query
-            speak("Vamos a ubicar")
+            speak("Te voy ayudar a ubicar con google map")
             speak(location)
             webbrowser.open("https://www.google.nl/maps/place/" + location + "")
  
-        elif "cámara" in query or "tomar una foto" in query:
+        elif "cámara" in query or "foto" in query:
+            speak("Espera un 30 segundos mientras activo la camara, tomo una foto y cierra la imagen para continuar")
             ec.capture(0, "foto", "img.jpg")
  
         elif "restart" in query:
@@ -359,11 +380,11 @@ if __name__ == '__main__':
             time.sleep(5)
             subprocess.call(["shutdown", "/l"])
  
-        elif "escribe una nota" in query or "escribir nota" in query:
+        elif "escribe una nota" in query or "escribir nota" in query or "toma una nota" in query:
             speak("Qué quisiera que yo escribiera")
             note = takeCommand()
             file = open('nota.txt', 'w')
-            speak("Puedo incluir el dia y la hora")
+            speak("Puedo incluir la fecha")
             snfm = takeCommand()
             if 'si' in snfm or 'seguro' in snfm:
                 strTime = datetime.datetime.now().strftime("% H:% M:% S")
@@ -373,7 +394,7 @@ if __name__ == '__main__':
             else:
                 file.write(note)
          
-        elif "mostrar la nota" in query or "ver la nota" in query or "ver nota" in query:
+        elif "mostrar la nota" in query or "ver la nota" in query or "ver nota" in query or "muestre la nota" in query :
             speak("mostrando la nota")
             file = open("nota.txt", "r") 
             print(file.read())
@@ -398,7 +419,7 @@ if __name__ == '__main__':
              
             wishMe()
             speak("Si señor ese soy yo... ")
-            speak(assname)
+            speak(assname + "estoy listo para tus consultas")
  
         elif "clima" in query:
              
@@ -413,7 +434,8 @@ if __name__ == '__main__':
             response = requests.get(complete_url) 
             x = response.json() 
             print(response.text)
-            if x["cod"] != "404": 
+
+            if x["cod"] != "404" and x["cod"] != "400": 
                 y = x["main"] 
                 current_temperature = str(round(float(y["temp"] - 273.15 ),0))
                 current_pressure = y["pressure"] 
@@ -421,9 +443,8 @@ if __name__ == '__main__':
                 z = x["weather"] 
                 weather_description = z[0]["description"] 
                 speak(" Temperatura es= " +str(current_temperature)+"grados centigrados"+"\n presión atmosférica="+str(current_pressure) +"hpa"+"\n la humedad es= " +str(current_humidity)+"porciento") 
-             
-            else: 
-                speak(" la ciudad no fué encontrada ")
+            else:
+                speak(" la ciudad no fué encontrada o no la entendí ")
              
         elif "enviar mensaje" in query:
                 # You need to create an account on Twilio to use this service
@@ -440,7 +461,7 @@ if __name__ == '__main__':
  
                 print(message.sid)
  
-        elif "wikipedia" in query:
+        elif "abrir wikipedia" in query:
             webbrowser.open("wikipedia.com")
  
         elif "hola" in query or  "que tal" in query or "buenas" in query:
@@ -449,17 +470,13 @@ if __name__ == '__main__':
             speak(assname)
  
         # most asked question from google Assistant
-        elif "seré tu novio" in query or "seré tu novia" in query:   
-            speak("No puedo amar, así que mejor busque otra pareja, en qué te puedo ayudar")
- 
-        elif "cómo estás" in query:
-            speak("Muy bien, gracias por preguntar")
+        elif "seré tu novio" in query or "seré tu novia" in query or "tu novio" in query or "tu novia" in query:   
+            speak("No puedo amar, así que mejor busque otra pareja, concentre en el trabajo de laboratorio, mejor continuemos")
  
         elif "te amo" in query:
             speak("Yo no puedo amar pero gracias por expresarlo, en qué te puedo ayudar")
  
-        elif "buscar" in query:
-             
+        elif "busca" in query:           
             # Use the same API key 
             # that we have generated earlier
             client = wolframalpha.Client("3527QJ-EYKJ9QYEQY")
@@ -475,5 +492,3 @@ if __name__ == '__main__':
         # elif "" in query:
             # Command go here
             # For adding more commands
-    
-    
