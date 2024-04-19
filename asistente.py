@@ -81,8 +81,7 @@ def username():
     global uname
     speak("Cual es su nombre")
     uname = takeCommand()
-    speak("Bienvenido al Centro de desarrollo tecnológico")
-    speak(uname)
+    speak(uname+",Bienvenido al Centro de desarrollo tecnológico")
     columns = shutil.get_terminal_size().columns
      
     print("#####################".center(columns))
@@ -149,7 +148,7 @@ if __name__ == '__main__':
             speak("Aqui vas a Youtube\n")
             webbrowser.open("youtube.com")
         
-        elif 'centro de desarrollo' in query or "cdt" in query or "cdt unab" in query or "soluciones iot" in query or "desarrollo tecnológico" in query:
+        elif 'centro de desarrollo' in query or "cdt" in query or "cdt unab" in query or "soluciones iot" in query or "desarrollo tecnológico" in query or "smart" in query:
             speak('Los centros de de desarrollo tecnológico son organizaciones públicas o privadas, dedicadas al desarrollo de proyectos de investigación aplicada, el desarrollo de tecnología propia y actividades de transferencia que responden a necesidades y/o oportunidades de desarrollo social y económico del país, sus regiones y/o ciudades.')
             speak("Te llevo auna página que te sirve de referencia\n")
             webbrowser.open("https://apolo.unab.edu.co/es/organisations/centro-de-desarrollo-tecnol%C3%B3gico-smart-regions-center")
@@ -181,7 +180,7 @@ if __name__ == '__main__':
         elif 'escuchar música' in query or "canción" in query or "música" in query or "oir una canción" in query:
             speak("Solo tengo esta canción porque mi jefe no me deja oir musica")
             # music_dir = "G:\\Song"
-            music_dir = "D:\\asistente\\musica"
+            music_dir = "D:\\asistente\musica"
             songs = os.listdir(music_dir)
             print(songs)    
             random = os.startfile(os.path.join(music_dir, songs[1]))
@@ -459,11 +458,11 @@ if __name__ == '__main__':
         elif "te amo" in query:
             speak("Yo no puedo amar pero gracias por expresarlo, en qué te puedo ayudar")
  
-        elif "qué es" in query or "quién es" in query or "hablame de" in query:
+        elif "buscar" in query:
              
             # Use the same API key 
             # that we have generated earlier
-            client = wolframalpha.Client("3527QJ-EYKJ9QYEQY",location="bucaramanga,CO")
+            client = wolframalpha.Client("3527QJ-EYKJ9QYEQY")
             res = client.query(query)
              
             try:
@@ -476,8 +475,5 @@ if __name__ == '__main__':
         # elif "" in query:
             # Command go here
             # For adding more commands
-    
-    
-    
     
     
