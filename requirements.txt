@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════
+#  MARTINA — Asistente Virtual Smart Regions Center
+#  Autor: Alfredo Díaz Claro — adiaz@unab.edu.co
+#  CDT Smart Regions Center — UNAB — 2025
+# ═══════════════════════════════════════════════════════
+#
+#  Python recomendado: 3.10.x
+#
+#  Instalación:
+#    python -m venv env
+#    env\Scripts\activate          (Windows)
+#    source env/bin/activate        (Linux/Mac)
+#    pip install -r requirements.txt
+#
+# ═══════════════════════════════════════════════════════
+
+# ── Voz y audio ─────────────────────────────────────────
+pyttsx3==2.90
+SpeechRecognition==3.10.4
+PyAudio==0.2.14
+pygame==2.6.1
+
+# ── Interfaz gráfica e imágenes ──────────────────────────
+# tkinter viene incluido en Python estándar (no instalar)
+Pillow==10.4.0
+
+# ── Música en streaming (sin API key, 100% gratis) ───────
+yt-dlp>=2024.12.3
+
+# ── Web y APIs ───────────────────────────────────────────
+requests==2.32.3
+wikipedia==1.4.0
+
+# ── Entretenimiento ──────────────────────────────────────
+pyjokes==0.7.2
+python-dotenv
