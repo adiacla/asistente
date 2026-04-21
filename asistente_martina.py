@@ -1096,6 +1096,14 @@ class MartinApp:
                 self.procesar_comando(query)
                 break
 
+            # Detectar negativas - terminar conversación
+            if any(p in query for p in [
+                'no', 'nada', 'nada más', 'eso es todo', 'ya es todo',
+                'no gracias', 'gracias', 'por ahora', 'nada más gracias'
+            ]):
+                self.hablar("De acuerdo. ¡Que tengas un excelente día! Di Martina cuando me necesites.", mostrar=False)
+                break
+
             # Responder
             self.procesar_comando(query)
 
