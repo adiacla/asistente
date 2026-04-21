@@ -64,8 +64,9 @@ from dotenv import load_dotenv
 load_dotenv()  # Carga el archivo .env automáticamente
 
 HF_API_TOKEN    = os.getenv("HF_API_TOKEN", "")
+HF_MODEL_ID    = os.getenv("HF_MODEL_ID", "meta-llama/Llama-3.2-3B-Instruct")
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY", "")
-EMAIL_PASSWORD  = os.getenv("EMAIL_PASSWORD", "")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")
 
 # ── Motor TTS ─────────────────────────────────────────────────────
 
@@ -743,12 +744,16 @@ class MartinApp:
 
         # ── Clima ────────────────────────────────────────────────
         elif 'clima' in q or 'temperatura' in q or 'lluvia' in q:
-            self.hablar("¿De qué ciudad quieres saber el clima?")
-            ciudad = self.escuchar(phrase_limit=4)
+            ciudad = self._extraer_ciudad(q)
             if ciudad:
                 self._consultar_clima(ciudad)
             else:
-                self.hablar("No escuché la ciudad, intenta de nuevo.")
+                self.hablar("¿De qué ciudad quieres saber el clima?")
+                ciudad = self.escuchar(phrase_limit=4)
+                if ciudad:
+                    self._consultar_clima(ciudad)
+                else:
+                    self.hablar("No escuché la ciudad, intenta de nuevo.")
 
         # ── Chiste ───────────────────────────────────────────────
         elif 'chiste' in q:
@@ -889,7 +894,7 @@ class MartinApp:
             return
 
         # ── Determinar qué buscar ─────────────────────────────────
-        busqueda = _extraer_busqueda(q) if MUSICA_DISPONIBLE else q
+        busqueda = self._extraer_busqueda(q) if MUSICA_DISPONIBLE else q
 
         # ── Modo YouTube (checkbox activo) ────────────────────────
         if self.modo_youtube_var.get():
@@ -938,6 +943,54 @@ class MartinApp:
         self._mostrar_estado_musica(
             f"♪ YouTube abierto: {busqueda}  —  cierra el navegador para continuar"
         )
+
+    # ── Extraer búsqueda de música del query ────────────────────────────
+
+    def _extraer_busqueda(self, query: str) -> str:
+        """
+        Extrae el término de búsqueda de música del query del usuario.
+        Quita comandos comunes como 'pon', 'toca', 'reproduce', etc.
+        """
+        q = query.lower()
+
+        stopwords = {
+            'pon', 'ponme', 'toca', 'toca una', 'reproduce', 'reproduce una',
+            'quiero', 'escuchar', 'necesito', 'una', 'la', 'el', 'de', 'del',
+            'en', 'con', 'por', 'para', 'su', 'me', 'te', 'que', 'qué',
+            'busca', 'buscar', 'musica', 'música', 'canción', 'canciones',
+            'artista', 'banda', 'cantante', 'grupo', ' Géneros removidos para búsqueda manual'
+            'salsa', 'vallenato', 'cumbia', 'rock', 'jazz', 'balada',
+            'relajante', 'reggaeton', 'reguetón', 'pop', 'trap', 'metal',
+            'electronica', 'electrónica', 'salsa', 'merengue', 'bachata'
+        }
+
+        palabras = re.findall(r'\w+', q)
+        resultado = []
+        for palabra in palabras:
+            if palabra not in stopwords and len(palabra) > 1:
+                resultado.append(palabra)
+
+        return ' '.join(resultado)
+
+    # ── Extraer ciudad del query ────────────────────────────────────
+
+    def _extraer_ciudad(self, query: str) -> str:
+        """
+        Extrae el nombre de una ciudad del query del usuario.
+        Extrae la última palabra que parezca ser un nombre de ciudad.
+        """
+        q = query.lower()
+
+        stopwords = {'el', 'la', 'los', 'las', 'un', 'una', 'de', 'del', 'en', 'es', 
+                   'que', 'qué', 'como', 'cuál', 'cual', 'cual es', 'cual es el', 
+                   'cual es la', 'está', 'esta', 'el clima', 'la clima', 'hacer',
+                   'necesito', 'saber', 'por', 'para', 'con', 'su', 'me', 'te'}
+
+        palabras = re.findall(r'\w+', q)
+        for palabra in reversed(palabras):
+            if palabra not in stopwords and len(palabra) > 2:
+                return palabra.capitalize()
+        return ""
 
     # ── Consulta clima ────────────────────────────────────────────
 
