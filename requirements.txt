@@ -33,4 +33,4 @@ wikipedia==1.4.0
 
 # ── Entretenimiento ──────────────────────────────────────
 pyjokes==0.7.2
-python-dotenv
+python-dotenv==1.0.1
