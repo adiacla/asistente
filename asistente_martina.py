@@ -398,6 +398,12 @@ class MartinApp:
         if MUSICA_DISPONIBLE:
             self.player_musica = PlayerMusica(callback_hablar=None)
 
+        # Estado de YouTube (playlist)
+        self._youtube_results = []
+        self._youtube_index = 0
+        self._ultima_busqueda = ""
+        self._youtube_tab = None  # Pestaña del navegador con YouTube
+
         # Cargar imágenes del avatar
         self._cargar_imagenes()
 
@@ -889,6 +895,18 @@ class MartinApp:
             'reanuda', 'continúa', 'sigue', 'siguiente', 'otra canción',
             'detén', 'apaga la música', 'stop música'
         ]
+        
+        # ── YouTube: siguientes comandos
+        comandos_youtube = ['siguiente', 'siguiente canción', 'next', 'próxima', 'proxima']
+        if any(p in q for p in comandos_youtube) and self.modo_youtube_var.get():
+            self._siguiente_cancion()
+            return
+        
+        comandos_anterior = ['anterior', 'canción anterior', 'previous', 'atrás', 'atras']
+        if any(p in q for p in comandos_anterior) and self.modo_youtube_var.get():
+            self._cancion_anterior()
+            return
+        
         if any(p in q for p in comandos_control) and self.player_musica:
             interpretar_comando_musica(q, self.player_musica)
             return
@@ -927,22 +945,89 @@ class MartinApp:
 
     def _reproducir_youtube(self, busqueda: str):
         """
-        Abre YouTube en el navegador con la búsqueda.
-        No descarga nada. El usuario controla el navegador.
-        Martina sigue funcionando normalmente en paralelo.
+        Busca y reproduce directamente el primer resultado de YouTube.
+        Guarda los resultados para navegación posterior.
         """
         import urllib.parse
-        termino = urllib.parse.quote_plus(busqueda)
-        url_busqueda = f"https://www.youtube.com/results?search_query={termino}"
+        import yt_dlp as ytdl
 
-        self.hablar(
-            f"Abriendo YouTube con {busqueda}. "
-            "Cuando quieras parar cierra el navegador y sigo contigo."
-        )
-        webbrowser.open(url_busqueda)
-        self._mostrar_estado_musica(
-            f"♪ YouTube abierto: {busqueda}  —  cierra el navegador para continuar"
-        )
+        termino = urllib.parse.quote_plus(busqueda)
+        url_busqueda = f"ytsearch10:{busqueda}"
+
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'format': 'bestaudio/best',
+            'noplaylist': True,
+            'skip_download': True,
+        }
+
+        try:
+            with ytdl.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url_busqueda, download=False)
+                if info and info.get('entries'):
+                    self._youtube_results = info['entries']
+                    self._youtube_index = 0
+                    self._ultima_busqueda = busqueda
+                    self._youtube_tab = None
+                    self._abrir_video_youtube(0)
+                    return
+        except Exception as e:
+            print(f"[YouTube] Error: {e}")
+
+        self.hablar(f"No encontré {busqueda} en YouTube.")
+        url = f"https://www.youtube.com/results?search_query={termino}"
+        webbrowser.open(url)
+        self._mostrar_estado_musica(f"♪ YouTube abierto: {busqueda}")
+
+    def _abrir_video_youtube(self, index: int):
+        """Abre el video en el índice especificado de los resultados."""
+        if not self._youtube_results or index < 0 or index >= len(self._youtube_results):
+            return
+        
+        entry = self._youtube_results[index]
+        video_url = entry.get('webpage_url')
+        titulo = entry.get('title', 'Unknown')
+        
+        self._youtube_index = index
+        
+        self.hablar(f"Reproduciendo: {titulo}")
+        
+        if self._youtube_tab:
+            try:
+                import webbrowser as wb
+                wb.open(video_url)
+            except:
+                webbrowser.open(video_url)
+        else:
+            webbrowser.open(video_url)
+            self._youtube_tab = True
+        
+        self._mostrar_estado_musica(f"♪ {index + 1}/{len(self._youtube_results)}: {titulo}")
+
+    def _siguiente_cancion(self):
+        """Reproduce la siguiente canción en la playlist."""
+        if not self._youtube_results:
+            self.hablar("No hay canciones en la playlist. Busca una canción primero.")
+            return
+        
+        siguiente = self._youtube_index + 1
+        if siguiente >= len(self._youtube_results):
+            siguiente = 0
+        
+        self._abrir_video_youtube(siguiente)
+
+    def _cancion_anterior(self):
+        """Reproduce la canción anterior en la playlist."""
+        if not self._youtube_results:
+            self.hablar("No hay canciones en la playlist. Busca una canción primero.")
+            return
+        
+        anterior = self._youtube_index - 1
+        if anterior < 0:
+            anterior = len(self._youtube_results) - 1
+        
+        self._abrir_video_youtube(anterior)
 
     # ── Extraer búsqueda de música del query ────────────────────────────
 
